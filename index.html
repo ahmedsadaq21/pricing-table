@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Pricing Plans</title>
+    <style>
+      :root {
+        --bg: #f5f7fb;
+        --card: #ffffff;
+        --muted: #6b7280;
+        --accent: #06b6d4; /* cyan-ish */
+        --accent-dark: #0891b2;
+        --primary: #111827;
+        --shadow: 0 8px 24px rgba(17, 24, 39, 0.08);
+        --radius: 12px;
+        --gap: 1.25rem;
+        --maxwidth: 1100px;
+      }
+
+      /* Reset-ish */
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+          Roboto, "Helvetica Neue", Arial;
+        background: linear-gradient(180deg, var(--bg), #eef2f7 60%);
+        color: var(--primary);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        padding: 3rem 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .pricing-wrap {
+        width: 100%;
+        max-width: var(--maxwidth);
+        margin: 0 auto;
+      }
+
+      .pricing-header {
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+      .pricing-header h1 {
+        margin: 0 0 0.25rem 0;
+        font-size: 1.6rem;
+        letter-spacing: -0.02em;
+      }
+      .pricing-header p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      /* Grid for plans */
+      .plans {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--gap);
+        align-items: stretch;
+      }
+
+      .plan {
+        background: var(--card);
+        border-radius: var(--radius);
+        padding: 1.5rem;
+        box-shadow: var(--shadow);
+        display: flex;
+        flex-direction: column;
+        border: 1px solid rgba(15, 23, 42, 0.04);
+        transition: transform 0.24s cubic-bezier(0.2, 0.9, 0.3, 1),
+          box-shadow 0.24s;
+      }
+
+      .plan:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 18px 36px rgba(17, 24, 39, 0.1);
+      }
+
+      /* Middle plan - standout */
+      .plan.popular {
+        transform: translateY(-6px);
+        border: 1px solid rgba(6, 182, 212, 0.12);
+        box-shadow: 0 30px 60px rgba(6, 182, 212, 0.08);
+        background: linear-gradient(
+          180deg,
+          rgba(6, 182, 212, 0.04),
+          var(--card)
+        );
+      }
+
+      /* Badge */
+      .badge {
+        display: inline-block;
+        background: var(--accent);
+        color: white;
+        padding: 0.35rem 0.6rem;
+        font-size: 0.78rem;
+        border-radius: 999px;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        margin-bottom: 0.8rem;
+      }
+
+      .plan h2 {
+        margin: 0.25rem 0 0.25rem 0;
+        font-size: 1.125rem;
+      }
+      .price {
+        margin: 0;
+        font-size: 1.9rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        color: var(--primary);
+      }
+      .period {
+        display: block;
+        font-size: 0.9rem;
+        color: var(--muted);
+        margin-top: 0.15rem;
+        font-weight: 600;
+      }
+
+      .desc {
+        margin: 0.9rem 0 1rem 0;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .features {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        flex: 1 1 auto; /* push CTA to bottom */
+      }
+      .features li {
+        display: flex;
+        gap: 0.6rem;
+        margin: 0.6rem 0;
+        align-items: flex-start;
+        color: #111827;
+        font-size: 0.95rem;
+      }
+      .features li::before {
+        content: "✓";
+        display: inline-block;
+        min-width: 1.3rem;
+        color: var(--accent-dark);
+        font-weight: 700;
+        font-size: 0.9rem;
+        transform: translateY(-1px);
+      }
+
+      .cta {
+        margin-top: 1.25rem;
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+      }
+
+      .btn {
+        display: inline-block;
+        text-decoration: none;
+        border-radius: 10px;
+        padding: 0.65rem 0.95rem;
+        font-weight: 700;
+        font-size: 0.95rem;
+        border: none;
+        cursor: pointer;
+      }
+      .btn-primary {
+        background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+        color: white;
+        box-shadow: 0 8px 20px rgba(6, 182, 212, 0.14);
+      }
+      .btn-ghost {
+        background: transparent;
+        color: var(--primary);
+        border: 1px solid rgba(15, 23, 42, 0.06);
+      }
+
+      /* subtle price subtext */
+      .save {
+        display: inline-block;
+        margin-left: 0.6rem;
+        color: var(--muted);
+        font-weight: 600;
+        font-size: 0.85rem;
+      }
+
+      /* Responsive: stack on narrower screens */
+      @media (max-width: 900px) {
+        .plans {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      @media (max-width: 660px) {
+        body {
+          padding: 2rem 0.75rem;
+        }
+        .plans {
+          grid-template-columns: 1fr;
+        }
+        .plan.popular {
+          transform: none;
+        } /* don't float on mobile */
+      }
+
+      /* small helper for accessibility focus */
+      .btn:focus {
+        outline: 3px solid rgba(6, 182, 212, 0.18);
+        outline-offset: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="pricing-wrap" aria-labelledby="pricing-heading">
+      <header class="pricing-header">
+        <h1 id="pricing-heading">Choose the plan that fits</h1>
+        <p>Simple, transparent pricing. Cancel anytime.</p>
+      </header>
+
+      <section class="plans" role="list" aria-label="Pricing plans">
+        <!-- Basic Plan -->
+        <article class="plan" role="listitem" aria-labelledby="plan-basic">
+          <span
+            class="badge"
+            style="background: #e6eef0; color: #134; font-weight: 700"
+            >Starter</span
+          >
+          <h2 id="plan-basic">Basic</h2>
+          <p class="price">$9<span class="period">/mo</span></p>
+          <p class="desc">
+            For individuals getting started — essential features included.
+          </p>
+          <ul class="features" aria-hidden="false">
+            <li>1 project</li>
+            <li>Basic analytics</li>
+            <li>Email support</li>
+          </ul>
+
+          <div class="cta">
+            <a
+              class="btn btn-primary"
+              href="#"
+              role="button"
+              aria-label="Select Basic plan"
+              >Get Started</a
+            >
+            <a
+              class="btn btn-ghost"
+              href="#"
+              role="button"
+              aria-label="Compare Basic plan"
+              >Learn more</a
+            >
+          </div>
+        </article>
+
+        <!-- Popular Plan (middle) -->
+        <article
+          class="plan popular"
+          role="listitem"
+          aria-labelledby="plan-pro"
+          aria-describedby="popular-note"
+        >
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            "
+          >
+            <span class="badge" aria-hidden="true">Most Popular</span>
+            <!-- decorative ribbon -->
+          </div>
+          <h2 id="plan-pro">Pro</h2>
+          <p class="price">$29<span class="period">/mo</span></p>
+          <p id="popular-note" class="desc">
+            For small teams who need collaboration plus advanced tools.
+          </p>
+          <ul class="features">
+            <li>Up to 10 projects</li>
+            <li>Advanced analytics & reports</li>
+            <li>Priority email support</li>
+            <li>Team collaboration</li>
+          </ul>
+
+          <div class="cta">
+            <a
+              class="btn btn-primary"
+              href="#"
+              role="button"
+              aria-label="Select Pro plan"
+              >Start Free Trial</a
+            >
+            <a
+              class="btn btn-ghost"
+              href="#"
+              role="button"
+              aria-label="Compare Pro plan"
+              >Compare</a
+            >
+          </div>
+        </article>
+
+        <!-- Enterprise Plan -->
+        <article class="plan" role="listitem" aria-labelledby="plan-enterprise">
+          <span
+            class="badge"
+            style="
+              background: #fff5e6;
+              color: #b35a00;
+              border: 1px solid rgba(179, 90, 0, 0.08);
+            "
+            >Enterprise</span
+          >
+          <h2 id="plan-enterprise">Business</h2>
+          <p class="price">$79<span class="period">/mo</span></p>
+          <p class="desc">
+            For larger organizations needing custom solutions & support.
+          </p>
+          <ul class="features">
+            <li>Unlimited projects</li>
+            <li>Dedicated account manager</li>
+            <li>Custom integrations</li>
+            <li>24/7 phone support</li>
+          </ul>
+
+          <div class="cta">
+            <a
+              class="btn btn-primary"
+              href="#"
+              role="button"
+              aria-label="Contact sales for Business plan"
+              >Contact Sales</a
+            >
+            <a
+              class="btn btn-ghost"
+              href="#"
+              role="button"
+              aria-label="See Business plan details"
+              >Details</a
+            >
+          </div>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
