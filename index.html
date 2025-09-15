@@ -38,6 +38,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        min-height: 100vh;
       }
 
       .pricing-wrap {
@@ -48,16 +49,19 @@
 
       .pricing-header {
         text-align: center;
-        margin-bottom: 1.5rem;
+        margin-bottom: 2rem;
+        margin-top: 2rem;
       }
       .pricing-header h1 {
-        margin: 0 0 0.25rem 0;
-        font-size: 1.6rem;
+        margin: 0 0 0.5rem 0;
+        font-size: 2rem;
         letter-spacing: -0.02em;
+        line-height: 1.2;
       }
       .pricing-header p {
         margin: 0;
         color: var(--muted);
+        font-size: 1.1rem;
       }
 
       /* Grid for plans */
@@ -78,6 +82,7 @@
         border: 1px solid rgba(15, 23, 42, 0.04);
         transition: transform 0.24s cubic-bezier(0.2, 0.9, 0.3, 1),
           box-shadow 0.24s;
+        position: relative;
       }
 
       .plan:hover {
@@ -102,37 +107,45 @@
         display: inline-block;
         background: var(--accent);
         color: white;
-        padding: 0.35rem 0.6rem;
-        font-size: 0.78rem;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
         border-radius: 999px;
         font-weight: 600;
         letter-spacing: 0.02em;
-        margin-bottom: 0.8rem;
+        margin-bottom: 1rem;
+        width: fit-content;
+      }
+
+      .badge.starter {
+        background: #06b6d4;
+        color: white;
       }
 
       .plan h2 {
-        margin: 0.25rem 0 0.25rem 0;
-        font-size: 1.125rem;
+        margin: 0 0 0.5rem 0;
+        font-size: 1.25rem;
+        font-weight: 700;
       }
       .price {
         margin: 0;
-        font-size: 1.9rem;
+        font-size: 2rem;
         font-weight: 700;
         letter-spacing: -0.02em;
         color: var(--primary);
+        line-height: 1.1;
       }
       .period {
-        display: block;
-        font-size: 0.9rem;
+        display: inline;
+        font-size: 1rem;
         color: var(--muted);
-        margin-top: 0.15rem;
         font-weight: 600;
       }
 
       .desc {
-        margin: 0.9rem 0 1rem 0;
+        margin: 1rem 0 1.5rem 0;
         color: var(--muted);
         font-size: 0.95rem;
+        line-height: 1.5;
       }
 
       .features {
@@ -140,84 +153,235 @@
         padding: 0;
         list-style: none;
         flex: 1 1 auto; /* push CTA to bottom */
+        margin-bottom: 1.5rem;
       }
       .features li {
         display: flex;
-        gap: 0.6rem;
-        margin: 0.6rem 0;
+        gap: 0.75rem;
+        margin: 0.75rem 0;
         align-items: flex-start;
         color: #111827;
         font-size: 0.95rem;
+        line-height: 1.4;
       }
       .features li::before {
         content: "✓";
         display: inline-block;
-        min-width: 1.3rem;
+        min-width: 1.2rem;
         color: var(--accent-dark);
         font-weight: 700;
-        font-size: 0.9rem;
-        transform: translateY(-1px);
+        font-size: 1rem;
+        flex-shrink: 0;
       }
 
       .cta {
-        margin-top: 1.25rem;
+        margin-top: auto;
         display: flex;
-        gap: 0.5rem;
-        align-items: center;
+        flex-direction: column;
+        gap: 0.75rem;
       }
 
       .btn {
         display: inline-block;
         text-decoration: none;
         border-radius: 10px;
-        padding: 0.65rem 0.95rem;
+        padding: 0.75rem 1rem;
         font-weight: 700;
         font-size: 0.95rem;
         border: none;
         cursor: pointer;
+        text-align: center;
+        transition: all 0.2s ease;
       }
       .btn-primary {
         background: linear-gradient(90deg, var(--accent), var(--accent-dark));
         color: white;
         box-shadow: 0 8px 20px rgba(6, 182, 212, 0.14);
       }
+      .btn-primary:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 12px 24px rgba(6, 182, 212, 0.18);
+      }
       .btn-ghost {
         background: transparent;
         color: var(--primary);
-        border: 1px solid rgba(15, 23, 42, 0.06);
+        border: 1px solid rgba(15, 23, 42, 0.12);
+      }
+      .btn-ghost:hover {
+        background: rgba(15, 23, 42, 0.02);
+        border-color: rgba(15, 23, 42, 0.18);
       }
 
-      /* subtle price subtext */
-      .save {
-        display: inline-block;
-        margin-left: 0.6rem;
-        color: var(--muted);
-        font-weight: 600;
-        font-size: 0.85rem;
+      /* Responsive Design */
+      
+      /* Large tablets and small desktops */
+      @media (max-width: 1024px) {
+        body {
+          padding: 2rem 1rem;
+        }
+        .pricing-header h1 {
+          font-size: 1.8rem;
+        }
       }
 
-      /* Responsive: stack on narrower screens */
+      /* Tablets */
       @media (max-width: 900px) {
         .plans {
           grid-template-columns: 1fr 1fr;
+          gap: 1rem;
         }
-      }
-      @media (max-width: 660px) {
-        body {
-          padding: 2rem 0.75rem;
-        }
-        .plans {
-          grid-template-columns: 1fr;
-        }
+        
+        /* Make the popular plan span both columns on tablet */
         .plan.popular {
+          grid-column: 1 / -1;
           transform: none;
-        } /* don't float on mobile */
+          margin-bottom: 1rem;
+        }
+        
+        .plan {
+          padding: 1.25rem;
+        }
       }
 
-      /* small helper for accessibility focus */
+      /* Small tablets and large phones */
+      @media (max-width: 768px) {
+        body {
+          padding: 1.5rem 0.75rem;
+          align-items: flex-start;
+        }
+        
+        .pricing-header {
+          margin-bottom: 1.5rem;
+        }
+        
+        .pricing-header h1 {
+          font-size: 1.6rem;
+        }
+        
+        .pricing-header p {
+          font-size: 1rem;
+        }
+        
+        .plans {
+          grid-template-columns: 1fr;
+          gap: 1rem;
+        }
+        
+        .plan {
+          margin-bottom: 0;
+        }
+        
+        .plan.popular {
+          grid-column: auto;
+          transform: none;
+          margin-bottom: 0;
+        }
+        
+        .price {
+          font-size: 1.75rem;
+        }
+      }
+
+      /* Mobile phones */
+      @media (max-width: 480px) {
+        body {
+          padding: 1rem 0.5rem;
+        }
+        
+        .pricing-wrap {
+          width: 100%;
+        }
+        
+        .pricing-header h1 {
+          font-size: 1.5rem;
+        }
+        
+        .pricing-header p {
+          font-size: 0.9rem;
+        }
+        
+        .plan {
+          padding: 1rem;
+          margin-bottom: 0;
+        }
+        
+        .badge {
+          padding: 0.3rem 0.6rem;
+          font-size: 0.75rem;
+        }
+        
+        .plan h2 {
+          font-size: 1.1rem;
+        }
+        
+        .price {
+          font-size: 1.5rem;
+        }
+        
+        .period {
+          font-size: 0.9rem;
+        }
+        
+        .desc {
+          font-size: 0.9rem;
+          margin: 0.75rem 0 1rem 0;
+        }
+        
+        .features li {
+          font-size: 0.9rem;
+          margin: 0.5rem 0;
+        }
+        
+        .btn {
+          padding: 0.65rem 0.85rem;
+          font-size: 0.9rem;
+        }
+        
+        .cta {
+          gap: 0.5rem;
+        }
+      }
+
+      /* Very small screens */
+      @media (max-width: 360px) {
+        body {
+          padding: 0.75rem 0.25rem;
+        }
+        
+        .plan {
+          padding: 0.875rem;
+        }
+        
+        .pricing-header h1 {
+          font-size: 1.35rem;
+        }
+        
+        .price {
+          font-size: 1.35rem;
+        }
+      }
+
+      /* Focus styles for accessibility */
       .btn:focus {
-        outline: 3px solid rgba(6, 182, 212, 0.18);
+        outline: 3px solid rgba(6, 182, 212, 0.3);
         outline-offset: 2px;
+      }
+
+      /* Ensure content is always visible */
+      .plan {
+        min-height: auto;
+        height: auto;
+      }
+      
+      /* Prevent horizontal overflow */
+      .pricing-wrap {
+        overflow-x: visible;
+      }
+      
+      /* Ensure grid doesn't break */
+      .plans {
+        width: 100%;
+        max-width: 100%;
       }
     </style>
   </head>
@@ -231,11 +395,7 @@
       <section class="plans" role="list" aria-label="Pricing plans">
         <!-- Basic Plan -->
         <article class="plan" role="listitem" aria-labelledby="plan-basic">
-          <span
-            class="badge"
-            style="background: #e6eef0; color: #134; font-weight: 700"
-            >Starter</span
-          >
+          <span class="badge starter">Starter</span>
           <h2 id="plan-basic">Basic</h2>
           <p class="price">KES199<span class="period">/mo</span></p>
           <p class="desc">
@@ -280,7 +440,6 @@
             "
           >
             <span class="badge" aria-hidden="true">Most Popular</span>
-            <!-- decorative ribbon -->
           </div>
           <h2 id="plan-pro">Pro</h2>
           <p class="price">KES499<span class="period">/mo</span></p>
